@@ -14,8 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MoneyTransferTest {
 
-  @BeforeEach
-  @Test
+    @BeforeEach
+    @Test
     void shouldAuthVerif() {
         Configuration.holdBrowserOpen = true;
         open("http://localhost:9999");
@@ -31,22 +31,16 @@ class MoneyTransferTest {
     @Test
     void shouldTransferMoneyBetweenOwnCardsOnFirst() {
         var yourCardsPage = new DashboardPage();
-      //  var initialBalanceCard=yourCardsPage().getCardBalance(DataHelper.idFirstCard);
-    //    int expected = initialBalanceCard - DataHelper.amount;
-        //var yourCardsPage = new YourCardsPage();
         yourCardsPage.selectOfTopUpFirstCard();
         var topUpCardPage = new TopUpCardPage();
         topUpCardPage.firstCardTopUp(DataHelper.getDataTopUpFirstCard());
-        //var yourCardsPage1 = new YourCardsPage();
-        //yourCardsPage.getCardBalance(DataHelper.idFirstCard);
-
         assertEquals(11000, yourCardsPage.getCardBalance(DataHelper.idFirstCard));
 
     }
+
     @Test
     void shouldTransferMoneyBetweenOwnCardsOnFirstBalanceSecond() {
         var yourCardsPage = new DashboardPage();
-       // yourCardsPage.getCardBalance(DataHelper.idSecondCard);
         assertEquals(9000, yourCardsPage.getCardBalance(DataHelper.idSecondCard));
     }
 
@@ -56,16 +50,12 @@ class MoneyTransferTest {
 //        yourCardsPage.selectOfTopUpSecondCard();
 //        var topUpCardPage2 = new TopUpCardPage();
 //        topUpCardPage2.secondCardTopUp(DataHelper.getDataTopUpSecondCard());
-//        //var yourCardsPage2 = new YourCardsPage();
 //        yourCardsPage.getCardBalance(DataHelper.idSecondCard);
-//
-//       // assertEquals(10000, yourCardsPage.getCardBalance(DataHelper.idFirstCard));
 //       assertEquals(10000, yourCardsPage.getCardBalance(DataHelper.idSecondCard));
 //    }
 //    @Test
 //    void shouldTransferMoneyBetweenOwnCardsOnSecondBalanceFerst() {
 //        var yourCardsPage = new DashboardPage();
-//       // yourCardsPage.getCardBalance(DataHelper.idFirstCard);
 //        assertEquals(10000, yourCardsPage.getCardBalance(DataHelper.idSecondCard));
 //    }
 

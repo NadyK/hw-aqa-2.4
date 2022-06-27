@@ -10,7 +10,7 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class TopUpCardPage {
 
-    public TopUpCardPage firstCardTopUp(DataHelper.DataTopUpFirstCard info){
+    public TopUpCardPage firstCardTopUp(DataHelper.DataTopUpFirstCard info) {
         $("[data-test-id= amount] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
         $("[data-test-id= amount] input").setValue(info.getAmount());
         $("[data-test-id= from] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
