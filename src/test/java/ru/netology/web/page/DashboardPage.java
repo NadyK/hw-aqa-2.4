@@ -19,10 +19,12 @@ public class DashboardPage {
     }
 
     public void selectOfTopUpFirstCard() {
+        $("[data-test-id=action-reload]").click();
         $(withText(DataHelper.idFirstCard)).$("button").click();
     }
 
     public void selectOfTopUpSecondCard() {
+        $("[data-test-id=action-reload]").click();
         $(withText(DataHelper.idSecondCard)).$("button").click();
     }
 

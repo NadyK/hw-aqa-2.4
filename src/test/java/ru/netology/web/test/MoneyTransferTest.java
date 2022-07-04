@@ -1,20 +1,18 @@
 package ru.netology.web.test;
 
 import com.codeborne.selenide.Configuration;
-import org.junit.Before;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.web.data.DataHelper;
 import ru.netology.web.page.*;
 
 import static com.codeborne.selenide.Selenide.open;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MoneyTransferTest {
 
-    @BeforeEach
+
+   @BeforeEach
     @Test
     void shouldAuthVerif() {
         Configuration.holdBrowserOpen = true;
@@ -30,34 +28,34 @@ class MoneyTransferTest {
 
     @Test
     void shouldTransferMoneyBetweenOwnCardsOnFirst() {
-        var yourCardsPage = new DashboardPage();
+       var yourCardsPage = new DashboardPage();
         yourCardsPage.selectOfTopUpFirstCard();
         var topUpCardPage = new TopUpCardPage();
-        topUpCardPage.firstCardTopUp(DataHelper.getDataTopUpFirstCard());
+        topUpCardPage.firstCardTopUp(new DataHelper.DataTopUpCard("1000","5559000000000001","5559000000000002"));
         assertEquals(11000, yourCardsPage.getCardBalance(DataHelper.idFirstCard));
 
     }
 
     @Test
     void shouldTransferMoneyBetweenOwnCardsOnFirstBalanceSecond() {
-        var yourCardsPage = new DashboardPage();
+       var yourCardsPage = new DashboardPage();
         assertEquals(9000, yourCardsPage.getCardBalance(DataHelper.idSecondCard));
     }
 
-//    @Test
-//    void shouldTransferMoneyBetweenOwnCardsOnSecondBalanceSecond() {
-//        var yourCardsPage = new DashboardPage();
-//        yourCardsPage.selectOfTopUpSecondCard();
-//        var topUpCardPage2 = new TopUpCardPage();
-//        topUpCardPage2.secondCardTopUp(DataHelper.getDataTopUpSecondCard());
-//        yourCardsPage.getCardBalance(DataHelper.idSecondCard);
-//       assertEquals(10000, yourCardsPage.getCardBalance(DataHelper.idSecondCard));
-//    }
-//    @Test
-//    void shouldTransferMoneyBetweenOwnCardsOnSecondBalanceFerst() {
-//        var yourCardsPage = new DashboardPage();
-//        assertEquals(10000, yourCardsPage.getCardBalance(DataHelper.idSecondCard));
-//    }
+    @Test
+    void shouldTransferMoneyBetweenOwnCardsOnSecondBalanceSecond() {
+       var yourCardsPage = new DashboardPage();
+        yourCardsPage.selectOfTopUpSecondCard();
+        var topUpCardPage2 = new TopUpCardPage();
+        topUpCardPage2.secondCardTopUp(new DataHelper.DataTopUpCard("1000", "5559000000000001","5559000000000002"));
+        yourCardsPage.getCardBalance(DataHelper.idSecondCard);
+       assertEquals(10000, yourCardsPage.getCardBalance(DataHelper.idSecondCard));
+    }
+    @Test
+    void shouldTransferMoneyBetweenOwnCardsOnSecondBalanceFirst() {
+       var yourCardsPage = new DashboardPage();
+        assertEquals(10000, yourCardsPage.getCardBalance(DataHelper.idFirstCard));
+    }
 
 }
 

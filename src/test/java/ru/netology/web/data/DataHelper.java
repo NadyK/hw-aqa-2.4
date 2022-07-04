@@ -1,5 +1,7 @@
 package ru.netology.web.data;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Value;
 
 
@@ -7,9 +9,9 @@ public class DataHelper {
     // public static String idFirstCard="92df3f1c-a033-48e6-8390-206f6b1f56c0";
     public static String idFirstCard = "0001";
     public static String idSecondCard = "0002";
-    public static int amount = 1000;
-    private static String numberFirstCard = "5559000000000001";
-    private static String numberSecondCard = "5559000000000002";
+//    public static int amount = 1000;
+//    private static String numberFirstCard = "5559000000000001";
+//    private static String numberSecondCard = "5559000000000002";
 
     private DataHelper() {
     }
@@ -39,28 +41,29 @@ public class DataHelper {
     }
 
     @Value
-    public static class DataTopUpFirstCard {
+    @AllArgsConstructor
+    @Data
 
-        private String amount;
-        private String from2;
-    }
-
-    public static DataTopUpFirstCard getDataTopUpFirstCard() {
-        return new DataTopUpFirstCard("1000", numberSecondCard);
-    }
-
-    @Value
-    public static class DataTopUpSecondCard {
-
+    public static class DataTopUpCard {
         private String amount;
         private String from1;
-    }
-
-    public static DataTopUpSecondCard getDataTopUpSecondCard() {
-        return new DataTopUpSecondCard("1000", numberFirstCard);
-    }
+        private String from2;
 
 
-}
+    }}
+
+//    @Value
+//    public static class DataTopUpSecondCard {
+//
+//        private String amount;
+//
+//    }
+//
+//    public static DataTopUpSecondCard getDataTopUpSecondCard() {
+//        return new DataTopUpSecondCard("1000", numberFirstCard);
+//    }
+
+
+
 
 
