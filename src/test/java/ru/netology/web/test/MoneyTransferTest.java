@@ -26,9 +26,27 @@ class MoneyTransferTest {
         var verificationCode = DataHelper.getVerificationCodeFor(authInfo);
         verificationPage.validVerify(verificationCode);
     }
-
     @Test
     void shouldTransferMoneyBetweenOwnCards() {
+        String amount = "1000";
+        int amountInt = Integer.parseInt(amount);
+        var yourCardsPage = new DashboardPage();
+        int startBalance1 = yourCardsPage.getCardBalance(idFirstCard);
+        int startBalance2 = yourCardsPage.getCardBalance(idSecondCard);
+        yourCardsPage.selectOfTopUpFirstCard();
+        var topUpCardPage = new TopUpCardPage();
+        topUpCardPage.cardTopUp(new DataHelper.DataTopUpCard(amount, DataHelper.cardNumFrom2));
+        assertEquals((startBalance1 + amountInt), yourCardsPage.getCardBalance(idFirstCard));
+        assertEquals((startBalance2 - amountInt), yourCardsPage.getCardBalance(idSecondCard));
+        yourCardsPage.selectOfTopUpSecondCard();
+        topUpCardPage.cardTopUp(new DataHelper.DataTopUpCard(amount, DataHelper.cardNumFrom1));
+        yourCardsPage.getCardBalance(idSecondCard);
+        assertEquals((startBalance1), yourCardsPage.getCardBalance(idFirstCard));
+        assertEquals((startBalance2), yourCardsPage.getCardBalance(idSecondCard));
+
+    }
+    @Test
+    void shouldTransferMoneyBetweenOwnCardsErrorMessage() {
         String amount = "11000";
         int amountInt = Integer.parseInt(amount);
         var yourCardsPage = new DashboardPage();
@@ -36,46 +54,10 @@ class MoneyTransferTest {
         int startBalance2 = yourCardsPage.getCardBalance(idSecondCard);
         yourCardsPage.selectOfTopUpFirstCard();
         var topUpCardPage = new TopUpCardPage();
-        topUpCardPage.firstCardTopUp(new DataHelper.DataTopUpCard(amount, "5559000000000001", "5559000000000002"));
-        assertEquals((startBalance1 + amountInt), yourCardsPage.getCardBalance(idFirstCard));
-        System.out.println("Ожидаемый баланс пополняемой карты: " + (startBalance1 + amountInt));
-        System.out.println("Фактический баланс пополняемой карты: " + (yourCardsPage.getCardBalance(idFirstCard)));
-        assertEquals((startBalance2 - amountInt), yourCardsPage.getCardBalance(idSecondCard));
-        System.out.println("Ожидаемый баланс карты списания: " + (startBalance2 - amountInt));
-        System.out.println("Фактический баланс карты списания: " + (yourCardsPage.getCardBalance(idSecondCard)));
-
-        yourCardsPage.selectOfTopUpSecondCard();
-        topUpCardPage.secondCardTopUp(new DataHelper.DataTopUpCard(amount, "5559000000000001", "5559000000000002"));
-        yourCardsPage.getCardBalance(idSecondCard);
+        topUpCardPage.cardTopUp(new DataHelper.DataTopUpCard(amount, DataHelper.cardNumFrom2));
+        yourCardsPage.errorMessage();
         assertEquals((startBalance1), yourCardsPage.getCardBalance(idFirstCard));
         assertEquals((startBalance2), yourCardsPage.getCardBalance(idSecondCard));
-
     }
-
-//    @Test
-//    //BetweenOwnCardsOnFirstBalanceSecond
-//    void shouldTransferMoney2() {
-//       var yourCardsPage = new DashboardPage();
-//        assertEquals(9000, yourCardsPage.getCardBalance(DataHelper.idSecondCard));
-//    }
-//
-//    @Test
-//    //BetweenOwnCardsOnSecondBalanceSecond
-//    void shouldTransferMoney3() {
-//       var yourCardsPage = new DashboardPage();
-//        yourCardsPage.selectOfTopUpSecondCard();
-//        var topUpCardPage2 = new TopUpCardPage();
-//        topUpCardPage2.secondCardTopUp(new DataHelper.DataTopUpCard("1000", "5559000000000001","5559000000000002"));
-//        yourCardsPage.getCardBalance(DataHelper.idSecondCard);
-//       assertEquals(10000, yourCardsPage.getCardBalance(DataHelper.idSecondCard));
-//       assertEquals(10000, yourCardsPage.getCardBalance(DataHelper.idFirstCard));
-//    }
-//    @Test
-//    //BetweenOwnCardsOnSecondBalanceFirst
-//    void shouldTransferMoney4() {
-//       var yourCardsPage = new DashboardPage();
-//        assertEquals(10000, yourCardsPage.getCardBalance(DataHelper.idFirstCard));
-//    }
-
 }
 

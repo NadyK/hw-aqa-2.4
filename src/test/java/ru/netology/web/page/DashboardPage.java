@@ -6,7 +6,10 @@ import com.codeborne.selenide.SelenideElement;
 import lombok.val;
 import ru.netology.web.data.DataHelper;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
@@ -44,6 +47,9 @@ public class DashboardPage {
     public int getCardBalance(String id) {
         val text = cards.find(Condition.ownText(id)).text();
         return extractBalance(text);
+    }
+    public void errorMessage() {
+        $(byText("Ошибка!")).shouldBe(Condition.appear, Duration.ofSeconds(15));
     }
 }
 

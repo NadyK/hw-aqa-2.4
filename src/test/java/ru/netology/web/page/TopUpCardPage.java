@@ -6,21 +6,14 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class TopUpCardPage {
 
-    public TopUpCardPage firstCardTopUp(DataHelper.DataTopUpCard info) {
+    public TopUpCardPage cardTopUp(DataHelper.DataTopUpCard info) {
         $("[data-test-id= amount] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
         $("[data-test-id= amount] input").setValue(info.getAmount());
         $("[data-test-id= from] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
-        $("[data-test-id= from] input").setValue(info.getFrom2());
+        $("[data-test-id= from] input").setValue(info.getFrom());
         $("[data-test-id=action-transfer]").click();
         return new TopUpCardPage();
     }
-    public TopUpCardPage secondCardTopUp(DataHelper.DataTopUpCard info) {
-        $("[data-test-id= amount] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
-        $("[data-test-id= amount] input").setValue(info.getAmount());
-        $("[data-test-id= from] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
-        $("[data-test-id= from] input").setValue(info.getFrom1());
-        $("[data-test-id=action-transfer]").click();
-        return new TopUpCardPage();
-    }
+
 }
 
